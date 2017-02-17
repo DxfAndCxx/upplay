@@ -9,6 +9,8 @@ import tornado.websocket
 
 def get_current_user(handler):
     user = handler.get_secure_cookie("user")
+    if not user:
+        return None
     user = user.decode('utf-8')
     if user not in permitUser:
         handler.set_status(401)

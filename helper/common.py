@@ -94,7 +94,6 @@ class Room(object):
 
         if all_ready:
             cards = deal_card()
-
             for i, user in enumerate(self._members.keys()):
                 self.broadcast_to_user(user, cards[i])
 
