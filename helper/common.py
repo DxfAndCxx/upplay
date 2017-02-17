@@ -11,7 +11,7 @@ class Member(object):
 
     def __init__(self, handler):
         self.user = handler.current_user
-        self.append(handler)
+        self.connects.append(handler)
 
 
     def add_connect(self, handler):
