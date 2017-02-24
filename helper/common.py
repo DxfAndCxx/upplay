@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from poker import deal_card
+from poker import Cards
 
 permitUser = [u'土土土', u'超超', u'雪峰', u'小雪']
+
+
 
 class Member(object):
     user = None
@@ -26,6 +28,7 @@ class Member(object):
 class Room(object):
     _members =  {}
     status = None
+    _memberslist = []
 
     def __init__(self):
         pass
@@ -39,6 +42,7 @@ class Room(object):
         user = handler.current_user
         member = Member(handler)
         self._members[user] = member
+        self._memberslist.append(user)
 
         # TODO: 发送广播：xxx 进入房间
 
@@ -66,7 +70,7 @@ class Room(object):
                 member.remove_connect(handler)
 
             if len(member.connects) <= 0:    # 成员离开房间
-                self.member_leave()
+                self.member_leave(handler)
 
 
     def broadcast(self, data):
@@ -84,8 +88,8 @@ class Room(object):
         member = self._members[user]
         member.ready = True
 
-        all_ready = False
-        for u, mem in self._members:
+        all_ready = True
+        for u, mem in self._members.items():
             if mem.ready:
                 # TODO: 发送广播：xxx 已准备
                 pass
@@ -93,15 +97,10 @@ class Room(object):
                 all_ready = False
 
         if all_ready:
-            cards = deal_card()
+            cards = Cards.deal_card()
             for i, user in enumerate(self._members.keys()):
                 self.broadcast_to_user(user, cards[i])
-
-
             # TODO: 所有人都准备好，广播发牌
-            #self.broadcast()
-            pass
-
 
 room = Room()
 

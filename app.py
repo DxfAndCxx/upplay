@@ -7,7 +7,7 @@ import tornado.websocket
 
 from actions.ws import EchoWebSocket
 from actions.auth import LoginHandler
-from actions.core import MainHandler
+from actions.core import MainHandler, ReadyHandler
 
 settings = {
     'static_path': 'static',
@@ -25,6 +25,7 @@ def make_app():
         (r'/', MainHandler),
         (r'/ws', EchoWebSocket),
         (r'/login', LoginHandler),
+        (r'/ready/', ReadyHandler)
     ], **settings)
 
 if __name__ == '__main__':
