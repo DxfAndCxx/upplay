@@ -5,6 +5,14 @@ from poker import Cards
 permitUser = [u'土土土', u'超超', u'雪峰', u'小雪']
 
 
+class Store(object):
+    def __init__(self):
+        self.path = ''
+
+    def load(self):
+        pass
+
+
 
 class Member(object):
     user = None
